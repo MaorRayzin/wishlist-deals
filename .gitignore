@@ -50,6 +50,9 @@ coverage.xml
 *.mo
 *.pot
 
+#pycharm
+vcs.xml
+
 # Django stuff:
 *.log
 *.sqlite3
