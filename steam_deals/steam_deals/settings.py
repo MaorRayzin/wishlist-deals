@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'steam_wishlist',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,15 @@ TEMPLATES = [
         },
     },
 ]
+
+# REST FRAMEWORK SETTINGS
+REST_FRAMEWORK = {
+
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
+}
+
 
 WSGI_APPLICATION = 'steam_deals.wsgi.application'
 
@@ -119,3 +129,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
