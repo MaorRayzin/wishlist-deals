@@ -1,6 +1,6 @@
 import requests
 import json
-from .consts import WISHLIST_SCRAPPER_URL
+from .consts import *
 
 
 def get_steam_wishlist(steam_id):
@@ -12,8 +12,11 @@ def get_steam_wishlist(steam_id):
         return {}
 
 
-def get_game_details(games_list):
-    pass
+def get_cheapshark_game_details(steam_app_id):
+    req = requests.get(CHEAP_SHARK_API_GET_GAME_DETAILS_URL.format(steam_app_id))
+    return json.loads(req.text)
 
-def get_game_deal(game):
-    pass
+
+def get_cheapshark_games_deals(cheapshark_game_ids):
+    req = requests.get(CHEAP_SHARK_API_GET_GAMES_DEALS_URL.format(cheapshark_game_ids))
+    return json.loads(req.text)
