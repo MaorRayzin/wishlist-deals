@@ -4,7 +4,14 @@ import './GameCard.css'
 
 class GameCard extends Component {
     render() {
-        return <article className="game-card"><h5>{this.props.name}</h5></article>
+        return <div className="game-card">
+                <figure>
+                    <img src={this.props.img} alt={this.props.name}/>
+                    <figcaption>
+                        {this.props.name}
+                    </figcaption>
+                </figure>
+        </div>
     }
 }
 

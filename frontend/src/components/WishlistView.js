@@ -8,7 +8,7 @@ import GameCard from './GameCard';
 class WishlistView extends Component {
     getGameCards() {
         let cards = this.props.wishlist.map(game => {
-            return <GameCard key={game.id} className="game-card" name={game.name}/>
+            return <GameCard key={game.id} className="game-card" name={game.name} img={game.img}/>
         });
         return <div className="game-cards">
             {cards}
