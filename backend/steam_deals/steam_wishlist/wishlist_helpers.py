@@ -1,16 +1,18 @@
 import requests
 import json
-from .consts import *
+
+from steam_wishlist.consts import STEAM_WISHLIST_URL, CHEAP_SHARK_API_GET_GAME_DETAILS_URL, \
+    CHEAP_SHARK_API_GET_GAMES_DEALS_URL
+from steam_wishlist.wishlist_scraper import Scrapper
 
 
 def get_steam_wishlist(steam_id):
-    scrap_req = requests.get(WISHLIST_SCRAPPER_URL.format(steam_id))
-    wishlist = json.loads(scrap_req.text)
-    if wishlist:
-        return wishlist
+    scrapper = Scrapper(STEAM_WISHLIST_URL.format(steam_id))
+    wishlsit = scrapper.get_wishlist()
+    if wishlsit:
+        return wishlsit
     else:
-        return {}
-
+        return []
 
 def get_cheapshark_game_details(steam_app_id):
     req = requests.get(CHEAP_SHARK_API_GET_GAME_DETAILS_URL.format(steam_app_id))
