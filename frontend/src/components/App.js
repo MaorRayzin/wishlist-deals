@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import logo from '../steam_logo.svg';
 import SteamIdInput from './SteamIdInput';
+import WishlistView from './WishlistView';
 
 import './App.css';
 
@@ -16,14 +16,11 @@ class App extends Component {
                 </div>
                 <div className="App-intro">
                     <SteamIdInput/>
+                    <WishlistView/>
                 </div>
             </div>
         );
     }
 }
 
-const mapStateToProps = store => {
-    return {wishlist: store.wishlist}
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

@@ -5,19 +5,15 @@ import {fetchWishlist} from '../actions/wishlistActions'
 import './SteamIdInput.css';
 
 class SteamIdInput extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            value: ''
-        }
-    }
-
     render() {
-        return ( <div id="steam-id-input-container">
-                <input className="steam-id-input" type="text" placeholder="Enter your Steam ID..." ref="idInput"/>
-                <input className="steam-id-input" type="button" value="Find my wishes!"
-                       onClick={() => this.props.onHandleClick(this.refs.idInput.value)}/>
+        return ( <div className="steam-id-input-container">
+                <input autoFocus className="steam-id-input" type="text" placeholder="Enter your Steam ID..."
+                       defaultValue="76561197974213560" ref="idInput"/>
+
+                <button className="steam-id-input"
+                        onClick={() => this.props.onHandleClick(this.refs.idInput.value)}>
+                    Find my wishes!
+                </button>
             </div>
         );
     }
@@ -33,5 +29,5 @@ const mapFetchWishlistToProps = dispatch => {
     }
 };
 
-export default connect(state => {return {
-}}, mapFetchWishlistToProps)(SteamIdInput);
+export default connect(state => ({})
+    , mapFetchWishlistToProps)(SteamIdInput);
