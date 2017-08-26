@@ -1,0 +1,10 @@
+#steam-id-input-container {
+    text-align: center;
+    margin: 35px;
+}
+.steam-id-input {
+    width: 35%;
+    line-height: 35px;
+    margin: 5px;
+    border: groove;
+}
