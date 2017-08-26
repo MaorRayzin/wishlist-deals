@@ -10,14 +10,17 @@ class Scrapper:
     def __init__(self, profile_wishlist_url):
         self.wishlist_url = profile_wishlist_url
 
-    def __get_wishlist_html_page(self):
-        r = requests.get(self.wishlist_url)
+    @staticmethod
+    def __get_wishlist_html_page(wishlist_url):
+        r = requests.get(wishlist_url)
         if r.status_code == requests.codes.ok:
-            self.wishlist_doc = r.content
+            return r.content
+        else:
+            return None
 
     def get_wishlist(self):
-        self.__get_wishlist_html_page()
-        soup = BeautifulSoup(self.wishlist_doc, BEAUTIFUL_SOUP_HTML_PARSER)
+        wishlist_doc = self.__get_wishlist_html_page(self.wishlist_url)
+        soup = BeautifulSoup(wishlist_doc, BEAUTIFUL_SOUP_HTML_PARSER)
         item_list = []
 
         rows = soup.find_all(class_=STEAM_PAGE_HTML_ITEM_CLASS)
