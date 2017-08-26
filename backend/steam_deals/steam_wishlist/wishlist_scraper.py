@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup
 import requests
 
 from steam_wishlist.consts import BEAUTIFUL_SOUP_HTML_PARSER, STEAM_PAGE_HTML_ITEM_CLASS, \
-    STEAM_PAGE_HTML_ID_PREFIX_COUNT, STEAM_PAGE_HTML_ITEM_NAME, STEAM_PAGE_HTML_ID
+    STEAM_PAGE_HTML_ID_PREFIX_COUNT, STEAM_PAGE_HTML_ITEM_NAME, STEAM_PAGE_HTML_ID, STEAM_PAGE_HTML_ITEM_IMG_SRC, \
+    STEAM_PAGE_HTML_ITEM_IMG
 
 
 class Scrapper:
@@ -26,8 +27,10 @@ class Scrapper:
         rows = soup.find_all(class_=STEAM_PAGE_HTML_ITEM_CLASS)
         for item in rows:
             name = item.find(class_=STEAM_PAGE_HTML_ITEM_NAME).string
+            thumbnail = item.find(STEAM_PAGE_HTML_ITEM_IMG).get(STEAM_PAGE_HTML_ITEM_IMG_SRC)
             id = item[STEAM_PAGE_HTML_ID][STEAM_PAGE_HTML_ID_PREFIX_COUNT:]
             item_list.append({'id': str(id),
-                              'name': name})
+                              'name': name,
+                              'img': thumbnail})
         return item_list
 
