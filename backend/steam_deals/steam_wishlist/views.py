@@ -5,7 +5,8 @@ from .wishlist_helpers import *
 
 class Wishlist(APIView):
     def get(self, request, steam_id):
-        wishlist = get_steam_wishlist(steam_id)
+        wishlist = get_full_detailed_wishlist(steam_id)
+
         return Response(wishlist)
 
 

@@ -79,6 +79,9 @@ REST_FRAMEWORK = {
     )
 }
 
+#IGDB
+IGDB_API_KEY = '70160aade9e448d16e017a2277d0999c'
+
 WSGI_APPLICATION = 'steam_deals.wsgi.application'
 
 # Database
