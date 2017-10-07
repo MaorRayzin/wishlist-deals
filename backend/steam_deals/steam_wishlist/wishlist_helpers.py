@@ -7,13 +7,8 @@ from steam_wishlist.wishlist_scraper import Scrapper
 from steam_wishlist.hltb_information import HLTB
 
 
-def get_full_detailed_wishlist(steam_id):
-    steam_wishlist = get_steam_wishlist(steam_id)
-    hltb_information = get_hltb_info(steam_wishlist)
-    return hltb_information
-
-def get_hltb_info(wishlit):
-    hltb_client = HLTB(wishlit)
+def get_hltb_info(game_steam_id):
+    hltb_client = HLTB(game_steam_id)
     return hltb_client.get_hltb_info_for_wishlist()
 
 

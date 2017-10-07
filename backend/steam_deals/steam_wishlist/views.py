@@ -4,10 +4,19 @@ from .wishlist_helpers import *
 
 
 class Wishlist(APIView):
+
     def get(self, request, steam_id):
-        wishlist = get_full_detailed_wishlist(steam_id)
+        wishlist = get_steam_wishlist(steam_id)
 
         return Response(wishlist)
+
+
+class HLTB(APIView):
+
+    def get(self, request, game_steam_id):
+        hltb_info = get_hltb_info(game_steam_id)
+
+        return Response(hltb_info)
 
 
 class CheapSharkGameDetails(APIView):
