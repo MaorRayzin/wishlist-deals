@@ -1,8 +1,8 @@
 import requests
 import json
 
-from steam_wishlist.consts import STEAM_WISHLIST_URL, CHEAP_SHARK_API_GET_GAME_DETAILS_URL, \
-    CHEAP_SHARK_API_GET_GAMES_DEALS_URL
+from steam_wishlist.consts import STEAM_WISHLIST_URL, \
+    CHEAP_SHARK_API_GET_GAMES_DEALS_URL, CHEAP_SHARK_API_GET_DEAL_DETAILS_URL
 from steam_wishlist.wishlist_scraper import Scrapper
 
 
@@ -15,11 +15,27 @@ def get_steam_wishlist(steam_id):
         return []
 
 
-def get_cheapshark_game_details(steam_app_id):
-    req = requests.get(CHEAP_SHARK_API_GET_GAME_DETAILS_URL.format(steam_app_id))
-    return json.loads(req.text)
+def get_cheapshark_cheapest_price_ever(deals):
+    # We assume there's at least one deal
+    # It seems like the cheapest price is actually global and not per deal, so it's enough to check just one of them
+    deal_id = deals[0]['dealID']
+    req = requests.get(CHEAP_SHARK_API_GET_DEAL_DETAILS_URL.format(deal_id))
+    parsed_deal = json.loads(req.text)
+    return parsed_deal['cheapestPrice']['price']
 
 
-def get_cheapshark_games_deals(cheapshark_game_ids):
-    req = requests.get(CHEAP_SHARK_API_GET_GAMES_DEALS_URL.format(cheapshark_game_ids))
-    return json.loads(req.text)
+def get_cheapshark_games_deals(steam_app_id):
+    req = requests.get(CHEAP_SHARK_API_GET_GAMES_DEALS_URL.format(steam_app_id))
+    req = json.loads(req.text)
+    game_deals = {}
+    game_deals['cheapestPriceEver'] = get_cheapshark_cheapest_price_ever(req)
+    game_deals['deals'] = []
+    for deal in req:
+        parsed_deal = {}
+        parsed_deal['dealID'] = deal['dealID']
+        parsed_deal['storeID'] = deal['storeID']
+        parsed_deal['salePrice'] = deal['salePrice']
+        parsed_deal['normalPrice'] = deal['normalPrice']
+        parsed_deal['savings'] = deal['savings']
+        game_deals['deals'].append(parsed_deal)
+    return json.dumps(game_deals)
