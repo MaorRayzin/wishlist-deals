@@ -4,6 +4,12 @@ import json
 from steam_wishlist.consts import STEAM_WISHLIST_URL, \
     CHEAP_SHARK_API_GET_GAMES_DEALS_URL, CHEAP_SHARK_API_GET_DEAL_DETAILS_URL
 from steam_wishlist.wishlist_scraper import Scrapper
+from steam_wishlist.hltb_information import HLTB
+
+
+def get_hltb_info(game_steam_id):
+    hltb_client = HLTB(game_steam_id)
+    return hltb_client.get_hltb_info_for_wishlist()
 
 
 def get_steam_wishlist(steam_id):
