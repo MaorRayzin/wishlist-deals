@@ -10,9 +10,10 @@ export function fetchWishlist(userSteamId) {
     }
 }
 
-export function fetchGameDetails(steamAppId) {
+export function fetchGameDeals(steamAppId) {
     return {
         type: FETCH_GAME_DETAILS,
-        payload: fetch('http://localhost:8000/details/' + steamAppId).then((res) => res.json())
+        steamAppId,
+        payload: fetch('http://localhost:8000/deals/' + steamAppId).then((res) => res.json())
     }
 }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import './WishlistView.css';
-import {fetchGameDetails} from '../actions/wishlistActions'
+import {fetchGameDeals} from '../actions/wishlistActions'
 import GameCard from './GameCard';
 
 class WishlistView extends Component {
@@ -32,11 +32,11 @@ class WishlistView extends Component {
     }
 }
 
-const mapFetchGameDetailsToProps = dispatch => {
+const mapFetchGameDealsToProps = dispatch => {
     return {
-        fetchGameDetails:
+        fetchGameDeals:
             steamAppId => {
-                dispatch(fetchGameDetails(steamAppId));
+                dispatch(fetchGameDeals(steamAppId));
             }
     }
 };
@@ -49,5 +49,5 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, mapFetchGameDetailsToProps)(WishlistView);
+export default connect(mapStateToProps, mapFetchGameDealsToProps)(WishlistView);
 

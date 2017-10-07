@@ -30,7 +30,7 @@ def get_cheapshark_cheapest_price_ever(deals):
     return parsed_deal['cheapestPrice']['price']
 
 
-def get_cheapshark_games_deals(steam_app_id):
+def get_cheapshark_game_deals(steam_app_id):
     req = requests.get(CHEAP_SHARK_API_GET_GAMES_DEALS_URL.format(steam_app_id))
     req = json.loads(req.text)
     game_deals = {}

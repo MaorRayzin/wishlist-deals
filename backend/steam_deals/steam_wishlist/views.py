@@ -12,11 +12,10 @@ class Wishlist(APIView):
 class HLTB(APIView):
     def get(self, request, game_steam_id):
         hltb_info = get_hltb_info(game_steam_id)
-
         return Response(hltb_info)
 
 
 class CheapSharkGamesDeals(APIView):
     def get(self, request, steam_app_id):
-        game_deals = get_cheapshark_games_deals(steam_app_id)
+        game_deals = get_cheapshark_game_deals(steam_app_id)
         return Response(game_deals)
