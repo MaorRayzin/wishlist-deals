@@ -2,7 +2,7 @@ import requests
 import json
 
 from steam_wishlist.consts import STEAM_WISHLIST_URL, \
-    CHEAP_SHARK_API_GET_GAMES_DEALS_URL, CHEAP_SHARK_API_GET_DEAL_DETAILS_URL
+    CHEAP_SHARK_API_GET_GAME_DEALS_URL, CHEAP_SHARK_API_GET_DEAL_DETAILS_URL
 from steam_wishlist.wishlist_scraper import Scrapper
 from steam_wishlist.hltb_information import HLTB
 
@@ -22,7 +22,6 @@ def get_steam_wishlist(steam_id):
 
 
 def get_cheapshark_cheapest_price_ever(deals):
-    # We assume there's at least one deal
     # It seems like the cheapest price is actually global and not per deal, so it's enough to check just one of them
     deal_id = deals[0]['dealID']
     req = requests.get(CHEAP_SHARK_API_GET_DEAL_DETAILS_URL.format(deal_id))
@@ -30,18 +29,19 @@ def get_cheapshark_cheapest_price_ever(deals):
     return parsed_deal['cheapestPrice']['price']
 
 
-def get_cheapshark_game_deals(steam_app_id):
-    req = requests.get(CHEAP_SHARK_API_GET_GAMES_DEALS_URL.format(steam_app_id))
-    req = json.loads(req.text)
-    game_deals = {}
-    game_deals['cheapestPriceEver'] = get_cheapshark_cheapest_price_ever(req)
-    game_deals['deals'] = []
-    for deal in req:
-        parsed_deal = {}
-        parsed_deal['dealID'] = deal['dealID']
-        parsed_deal['storeID'] = deal['storeID']
-        parsed_deal['salePrice'] = deal['salePrice']
-        parsed_deal['normalPrice'] = deal['normalPrice']
-        parsed_deal['savings'] = deal['savings']
-        game_deals['deals'].append(parsed_deal)
-    return json.dumps(game_deals)
+def get_cheapshark_game_deals(steam_app_ids):
+    req = requests.get(CHEAP_SHARK_API_GET_GAME_DEALS_URL.format(steam_app_ids))
+    cheapshark_deals = json.loads(req.text)
+
+    placeholder_deal_dict = {steam_app_id: [] for steam_app_id in steam_app_ids.split(',')}
+    for cheapshark_deal in cheapshark_deals:
+        parsed_deal = {'dealID': cheapshark_deal['dealID'], 'storeID': cheapshark_deal['storeID'],
+                       'salePrice': cheapshark_deal['salePrice'], 'normalPrice': cheapshark_deal['normalPrice'],
+                       'savings': cheapshark_deal['savings']}
+
+        steam_app_id = cheapshark_deal['steamAppID']
+        placeholder_deal_dict[steam_app_id].append(parsed_deal)
+
+    return [
+        {'steamAppId': steam_app_id, 'deals': deals, 'cheapestPriceEver': get_cheapshark_cheapest_price_ever(deals)}
+        for steam_app_id, deals in placeholder_deal_dict.items()]

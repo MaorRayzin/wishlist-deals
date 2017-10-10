@@ -10,7 +10,7 @@ export function fetchWishlist(userSteamId) {
     }
 }
 
-export function fetchGameDeals(steamAppId) {
+export function fetchGamesDeals(steamAppId) {
     return {
         type: FETCH_GAME_DETAILS,
         steamAppId,

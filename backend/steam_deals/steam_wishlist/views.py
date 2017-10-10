@@ -16,6 +16,7 @@ class HLTB(APIView):
 
 
 class CheapSharkGamesDeals(APIView):
-    def get(self, request, steam_app_id):
-        game_deals = get_cheapshark_game_deals(steam_app_id)
+    def get(self, request):
+        steam_app_ids = request.GET.get('steamAppIds')
+        game_deals = get_cheapshark_game_deals(steam_app_ids)
         return Response(game_deals)
