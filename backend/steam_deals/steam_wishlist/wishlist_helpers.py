@@ -8,7 +8,7 @@ from steam_wishlist.hltb_information import HLTB
 
 
 def get_hltb_info(game_steam_id):
-    hltb_client = HLTB(game_steam_id)
+    hltb_client = HLTB([game_steam_id])
     return hltb_client.get_hltb_info_for_wishlist()
 
 
