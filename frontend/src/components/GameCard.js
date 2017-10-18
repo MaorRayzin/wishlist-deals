@@ -13,7 +13,7 @@ class GameCard extends Component {
                     </figcaption>
                 </figure>
 
-                <div className="clash-card__unit-stats clash-card__unit-stats--barbarian">
+                <div className="clash-card__unit-stats">
                     <div className="one-third">
                         <div className="stat">20<sup>S</sup></div>
                         <div className="stat-value">Training</div>
